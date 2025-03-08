@@ -78,13 +78,21 @@ export const ArticlePages = () => {
               </div>
               <div className={style.titleTagContainer}>
                 <div className={style.tag}>
-                  {data?.article.tagList.map((t, index) => {
-                    return (
-                      <span key={index} className={style.tagName}>
-                        {t}
-                      </span>
-                    );
-                  })}
+                  {data?.article.tagList === null
+                    ? data?.article.tagList || []
+                    : data?.article.tagList.map((t, index) => {
+                        if (t === null) {
+                          return;
+                        }
+                        return (
+                          <span
+                            key={`${data?.article.slug}-${t}-${index}`}
+                            className={style.tagName}
+                          >
+                            {t}
+                          </span>
+                        );
+                      })}
                 </div>
               </div>
             </div>

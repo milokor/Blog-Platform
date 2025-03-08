@@ -70,6 +70,9 @@ export const ArticleList = () => {
                       {art.tagList === null
                         ? art.tagList || []
                         : art.tagList.map((t, index) => {
+                            if (t === null) {
+                              return;
+                            }
                             return (
                               <span key={`${art.slug}-${t}-${index}`} className={style.tagName}>
                                 {t}

@@ -21,6 +21,8 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
     control,
     formState: { errors },
     reset,
+    getValues,
+    setValue,
   } = useForm<ICreateArticle>({
     mode: 'onChange',
     defaultValues: {
@@ -76,6 +78,12 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
       }
     }
   };
+  const handleTagRemove = (removeFn: (index: number) => void, index: number) => {
+    removeFn(index);
+    const currentTags = getValues('tagList');
+    const newTags = currentTags.filter((_: any, i: number) => i !== index);
+    setValue('tagList', newTags);
+  };
   return (
     <>
       {isLoading ? (
@@ -130,50 +138,60 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
             >
               {(fields, { add, remove }) => (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                  {fields.map(({ key }, index) => (
-                    <Form.Item
-                      label={index === 0 ? 'Tags' : ''}
-                      key={key}
-                      style={{ marginBottom: 0 }}
-                    >
-                      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                        <Controller
-                          name={`tagList.${index}`}
-                          control={control}
-                          rules={{
-                            minLength: {
-                              value: 2,
-                              message: 'должен быть от 2 символов',
-                            },
-                          }}
-                          render={({ field }) => (
-                            <Input
-                              {...field}
-                              placeholder="Tag"
-                              style={{ width: 300, height: 40 }}
-                            />
-                          )}
-                        />
-                        <div style={{ display: 'flex', gap: 8 }}>
-                          {fields.length > 1 && (
-                            <Button
-                              type="link"
-                              className={style.buttonDelete}
-                              danger
-                              onClick={() => remove(index)}
-                            >
-                              Delete
-                            </Button>
-                          )}
-                          {index === fields.length - 1 && (
-                            <Button type="link" className={style.buttonAdd} onClick={() => add('')}>
-                              Add tag
-                            </Button>
-                          )}
+                  {fields.map(({ key }, index) => {
+                    const error = errors.tagList?.[index];
+                    return (
+                      <Form.Item
+                        label={index === 0 ? 'Tags' : ''}
+                        key={key}
+                        style={{ marginBottom: 0 }}
+                        validateStatus={error ? 'error' : ''}
+                        help={error?.message || ''}
+                      >
+                        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                          <Controller
+                            name={`tagList.${index}`}
+                            control={control}
+                            rules={{
+                              required: 'Должен быть от 2 символов',
+                              minLength: {
+                                value: 2,
+                                message: 'Должен быть от 2 символов',
+                              },
+                            }}
+                            render={({ field }) => (
+                              <Input
+                                {...field}
+                                placeholder="Tag"
+                                style={{ width: 300, height: 40 }}
+                              />
+                            )}
+                          />
+                          <div style={{ display: 'flex', gap: 8 }}>
+                            {fields.length > 1 && (
+                              <Button
+                                type="link"
+                                className={style.buttonDelete}
+                                danger
+                                onClick={() => handleTagRemove(remove, index)}
+                              >
+                                Delete
+                              </Button>
+                            )}
+                            {index === fields.length - 1 && (
+                              <Button
+                                type="link"
+                                className={style.buttonAdd}
+                                onClick={() => add('')}
+                              >
+                                Add tag
+                              </Button>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    </Form.Item>
-                  ))}
+                      </Form.Item>
+                    );
+                  })}
                 </div>
               )}
             </Form.List>
