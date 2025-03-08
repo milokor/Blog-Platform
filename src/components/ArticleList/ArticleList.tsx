@@ -18,7 +18,7 @@ export const ArticleList = () => {
   const [api, contextHolder] = notification.useNotification();
   const page = useAppSelector((state) => state.article);
   const { mainPage, pageSize } = page;
-  const { data, isLoading, refetch } = useGetArticlesQuery({ mainPage, pageSize });
+  const { data, isLoading } = useGetArticlesQuery({ mainPage, pageSize });
   const dispatch = useAppDispatch();
   const handleClick = async (slug: string, favorited: boolean) => {
     try {
@@ -27,7 +27,6 @@ export const ArticleList = () => {
       } else {
         await favoriteAnArticle({ slug }).unwrap();
       }
-      refetch();
     } catch (error) {
       const err = error as IUnauthorizedError;
       if (err.status === 401) {
@@ -68,13 +67,15 @@ export const ArticleList = () => {
                   </div>
                   <div className={style.titleTagContainer}>
                     <div className={style.tag}>
-                      {art.tagList.map((t, index) => {
-                        return (
-                          <span key={`${art.slug}-${t}-${index}`} className={style.tagName}>
-                            {t}
-                          </span>
-                        );
-                      })}
+                      {art.tagList === null
+                        ? art.tagList || []
+                        : art.tagList.map((t, index) => {
+                            return (
+                              <span key={`${art.slug}-${t}-${index}`} className={style.tagName}>
+                                {t}
+                              </span>
+                            );
+                          })}
                     </div>
                   </div>
                 </div>
@@ -109,7 +110,6 @@ export const ArticleList = () => {
             }}
             total={data?.articlesCount}
             pageSize={pageSize}
-            hideOnSinglePage={true}
           />
         </div>
       )}

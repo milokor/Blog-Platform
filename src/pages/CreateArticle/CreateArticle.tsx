@@ -140,6 +140,12 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
                         <Controller
                           name={`tagList.${index}`}
                           control={control}
+                          rules={{
+                            minLength: {
+                              value: 2,
+                              message: 'должен быть от 2 символов',
+                            },
+                          }}
                           render={({ field }) => (
                             <Input
                               {...field}

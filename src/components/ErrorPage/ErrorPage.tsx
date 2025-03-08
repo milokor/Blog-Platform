@@ -13,6 +13,7 @@ export const ErrorPage = () => {
       }}
     >
       <Alert message={'Возникла непредвиденная ошибка'} type={'error'} />
+
       <Link to={'/'}>Вернуться назад</Link>
     </div>
   );
