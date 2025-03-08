@@ -30,7 +30,6 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
       tagList: [''],
     },
   });
-
   useEffect(() => {
     if (defaultValues && !isLoading) {
       reset({

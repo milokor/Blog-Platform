@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { logOut, setAuthStatus, setUserDate, setUserName } from '../../redux/usersSlice/userSlice';
 import { useGetProfileQuery, useGetUserDataQuery } from '../../redux/UsersApi/userApi';
-import { Spin } from 'antd';
 import { ButtonAuthorized } from '../ButtonIsAuthorized/ButtonAuthorized';
 import { ButtonNoAuthorized } from '../ButtonIsAuthorized/ButtonNoAuthorized';
 const HeaderComponent = () => {
@@ -43,20 +42,16 @@ const HeaderComponent = () => {
   }, [token, dispatch, userData, isUserLoading, profileData]);
   return (
     <>
-      {isLoading ? (
-        <Spin />
-      ) : (
-        <header className={style.container}>
-          <div className={style.titleContainer}>
-            <Link to={'/'} className={style.linkTitle}>
-              Realworld Blog
-            </Link>
-          </div>
-          <div className={style.buttonContainer}>
-            {auth ? <ButtonAuthorized /> : <ButtonNoAuthorized />}
-          </div>
-        </header>
-      )}
+      <header className={style.container}>
+        <div className={style.titleContainer}>
+          <Link to={'/'} className={style.linkTitle}>
+            Realworld Blog
+          </Link>
+        </div>
+        <div className={style.buttonContainer}>
+          {auth ? <ButtonAuthorized /> : <ButtonNoAuthorized />}
+        </div>
+      </header>
     </>
   );
 };

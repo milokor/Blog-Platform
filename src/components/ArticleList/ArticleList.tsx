@@ -6,7 +6,6 @@ import {
   useGetArticlesQuery,
 } from '../../redux/ArticlesApi/api';
 import style from './ArticleList.module.scss';
-import { nanoid } from '@reduxjs/toolkit';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { setCurrentPage } from '../../redux/ArticleSlice/ArticleSlice';
 import { dateParse } from '../../utils/dateParse';
@@ -19,106 +18,98 @@ export const ArticleList = () => {
   const [api, contextHolder] = notification.useNotification();
   const page = useAppSelector((state) => state.article);
   const { mainPage, pageSize } = page;
-
+  const { data, isLoading, refetch } = useGetArticlesQuery({ mainPage, pageSize });
+  const dispatch = useAppDispatch();
   const handleClick = async (slug: string, favorited: boolean) => {
-    if (favorited) {
-      try {
+    try {
+      if (favorited) {
         await deleteFavoriteAnArticle({ slug }).unwrap();
-      } catch (error) {
-        const err = error as IUnauthorizedError;
-        if (err.status === 401) {
-          api.error({
-            key: 'create-error401',
-            message: 'Вам нужно авторизоваться',
-            duration: 3,
-            showProgress: true,
-          });
-        }
-      }
-    } else {
-      try {
+      } else {
         await favoriteAnArticle({ slug }).unwrap();
-      } catch (error) {
-        const err = error as IUnauthorizedError;
-        if (err.status === 401) {
-          api.error({
-            key: 'create-error401',
-            message: 'Вам нужно авторизоваться',
-            duration: 3,
-            showProgress: true,
-          });
-        }
+      }
+      refetch();
+    } catch (error) {
+      const err = error as IUnauthorizedError;
+      if (err.status === 401) {
+        api.error({
+          key: 'auth-error',
+          message: 'Вам нужно авторизоваться',
+          duration: 3,
+        });
       }
     }
   };
-  const { data, isLoading } = useGetArticlesQuery({ mainPage, pageSize });
-  const dispatch = useAppDispatch();
+
   return (
     <>
+      {contextHolder}
       {isLoading ? (
-        <Spin />
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
+          <Spin size="large" />
+        </div>
       ) : (
         data?.articles.map((art) => {
           return (
-            <>
-              {contextHolder}
-              <div className={style.container} key={nanoid()}>
-                <div className={style.containerTop}>
-                  <div className={style.titleLikedTagContainer}>
-                    <div className={style.titleLikedContainer}>
-                      <Link key={nanoid()} to={`/articles/${art.slug}`} className={style.title}>
-                        {art.title}
-                      </Link>
-                      <button
-                        type="button"
-                        className={style.liked}
-                        onClick={() => handleClick(art.slug, art.favorited)}
-                      >
-                        {art.favorited ? <Liked /> : <NoLiked />}
-                        <span className={style.like}>{art.favoritesCount}</span>
-                      </button>
-                    </div>
-                    <div className={style.titleTagContainer}>
-                      <div className={style.tag}>
-                        {art.tagList.map((t) => {
-                          return (
-                            <span key={nanoid()} className={style.tagName}>
-                              {t}
-                            </span>
-                          );
-                        })}
-                      </div>
-                    </div>
+            <div className={style.container} key={art.slug}>
+              <div className={style.containerTop}>
+                <div className={style.titleLikedTagContainer}>
+                  <div className={style.titleLikedContainer}>
+                    <Link to={`/articles/${art.slug}`} className={style.title}>
+                      {art.title}
+                    </Link>
+                    <button
+                      type="button"
+                      className={style.liked}
+                      onClick={() => handleClick(art.slug, art.favorited)}
+                    >
+                      {art.favorited ? <Liked /> : <NoLiked />}
+                      <span className={style.like}>{art.favoritesCount}</span>
+                    </button>
                   </div>
-                  <div className={style.profileContainer}>
-                    <div className={style.leftBlock}>
-                      <span className={style.name}>{art.author.username}</span>
-                      <span className={style.date}>{dateParse(art.createdAt)}</span>
+                  <div className={style.titleTagContainer}>
+                    <div className={style.tag}>
+                      {art.tagList.map((t, index) => {
+                        return (
+                          <span key={`${art.slug}-${t}-${index}`} className={style.tagName}>
+                            {t}
+                          </span>
+                        );
+                      })}
                     </div>
-                    <img src={art.author.image} alt="profile" />
                   </div>
                 </div>
-                <div className={style.bottomContainer}>
-                  <p className={style.description}>{art.description}</p>
+                <div className={style.profileContainer}>
+                  <div className={style.leftBlock}>
+                    <span className={style.name}>{art.author.username}</span>
+                    <span className={style.date}>{dateParse(art.createdAt)}</span>
+                  </div>
+                  <img src={art.author.image} alt="profile" />
                 </div>
               </div>
-            </>
+              <div className={style.bottomContainer}>
+                <p className={style.description}>{art.description}</p>
+              </div>
+            </div>
           );
         })
       )}
-      {isLoading ? (
-        <Spin />
-      ) : (
+      {!isLoading && (
         <div className={style.paginationContainer}>
           <Pagination
             align="center"
+            current={Math.floor(mainPage / pageSize) + 1}
             onChange={(page, pageSize) => {
-              const pageCurrent =
-                page === 1 ? { mainPage: 0, pageSize } : { mainPage: page * pageSize, pageSize };
-              dispatch(setCurrentPage(pageCurrent));
+              const newPage = page - 1;
+              dispatch(
+                setCurrentPage({
+                  mainPage: newPage * pageSize,
+                  pageSize,
+                }),
+              );
             }}
             total={data?.articlesCount}
-            defaultPageSize={20}
+            pageSize={pageSize}
+            hideOnSinglePage={true}
           />
         </div>
       )}

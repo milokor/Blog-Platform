@@ -4,7 +4,7 @@ export interface mainState {
   pageSize: number;
 }
 const initialState: mainState = {
-  mainPage: 1,
+  mainPage: 0,
   pageSize: 20,
 };
 export const ArticleSlice = createSlice({
