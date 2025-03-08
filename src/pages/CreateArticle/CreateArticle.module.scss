@@ -1,0 +1,47 @@
+@use "/src/index.scss" as *;
+.container {
+  border: 1px solid $normal-color;
+  border-radius: 6px;
+  padding: 48px 32px;
+  width: 938px;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 34px;
+  box-shadow:
+    0 1px 3px 0 $table-header,
+    0 1px 7px 0 rgba(0, 0, 0, 0.03),
+    0 3px 13px 0 rgba(0, 0, 0, 0.04),
+    0 5px 24px 0 rgba(0, 0, 0, 0.04),
+    0 9px 44px 0 rgba(0, 0, 0, 0.05),
+    0 22px 106px 0 rgba(0, 0, 0, 0.07);
+  background: $background-color-base;
+  .title {
+    display: flex;
+    justify-content: center;
+    font-family: $second-family;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 140%;
+    text-align: center;
+    color: #262626;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .buttonDelete {
+    border: 1px solid $error-color;
+    border-radius: 4px;
+    padding: 8px 16px;
+    width: 118px;
+    height: 40px;
+  }
+  .buttonAdd {
+    border: 1px solid $primary-color;
+    border-radius: 4px;
+    padding: 8px 16px;
+    width: 136px;
+    height: 40px;
+  }
+}

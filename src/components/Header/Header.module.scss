@@ -1,0 +1,22 @@
+@use "../../index.scss" as *;
+
+.container {
+  display: flex;
+  padding: 16px;
+  justify-content: space-between;
+  background: $background-color-base;
+  font-size: 18px;
+  line-height: 156%;
+  font-family: $font-family;
+
+  .titleContainer {
+    display: flex;
+    align-items: center;
+    color: $heading-color;
+  }
+
+  .buttonContainer {
+    display: flex;
+    align-items: center;
+  }
+}

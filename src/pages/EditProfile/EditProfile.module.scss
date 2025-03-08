@@ -1,0 +1,35 @@
+@use "../../index.scss" as *;
+.container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $normal-color;
+  border-radius: 6px;
+  padding: 48px 32px;
+  width: 384px;
+  height: 498px;
+  margin: 0 auto;
+  margin-top: 50px;
+  box-shadow:
+    0 1px 3px 0 $table-header,
+    0 1px 7px 0 rgba(0, 0, 0, 0.03),
+    0 3px 13px 0 rgba(0, 0, 0, 0.04),
+    0 5px 24px 0 rgba(0, 0, 0, 0.04),
+    0 9px 44px 0 rgba(0, 0, 0, 0.05),
+    0 22px 106px 0 rgba(0, 0, 0, 0.07);
+  background: $background-color-base;
+  gap: 10px;
+  height: auto;
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .title {
+    font-family: $second-family;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 140%;
+    text-align: center;
+    color: #262626;
+  }
+}

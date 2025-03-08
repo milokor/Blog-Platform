@@ -1,0 +1,52 @@
+@use "../../index.scss" as *;
+
+.container {
+  border: 1px solid $normal-color;
+  border-radius: 6px;
+  padding: 48px 32px;
+  width: 384px;
+  height: auto;
+  box-shadow:
+    0 1px 3px 0 $table-header,
+    0 1px 7px 0 rgba(0, 0, 0, 0.03),
+    0 3px 13px 0 rgba(0, 0, 0, 0.04),
+    0 5px 24px 0 rgba(0, 0, 0, 0.04),
+    0 9px 44px 0 rgba(0, 0, 0, 0.05),
+    0 22px 106px 0 rgba(0, 0, 0, 0.07);
+  background: $background-color-base;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 50px;
+  gap: 20px;
+  .title {
+    font-family: $second-family;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 140%;
+    text-align: center;
+    color: #262626;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .bottomContainer {
+    display: flex;
+    flex-direction: column;
+    .descriptionLink {
+      font-family: $second-family;
+      font-size: 12px;
+      line-height: 167%;
+      text-align: center;
+      color: #8c8c8c;
+      margin-top: 8px;
+      a {
+        color: $primary-color;
+      }
+    }
+  }
+}

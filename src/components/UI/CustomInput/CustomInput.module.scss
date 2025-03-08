@@ -1,0 +1,32 @@
+@use "../../../index.scss" as *;
+
+.customTitle {
+  font-family: $second-family;
+  font-size: 14px;
+  color: #262626;
+}
+
+.customInput {
+  width: 320px;
+  height: 40px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  padding: 12px;
+  font-family: $second-family;
+  font-size: 16px;
+  line-height: 150%;
+  &::placeholder {
+    color: #bfbfbf;
+  }
+  &:hover {
+    border-color: #4096ff;
+    transition: all 1s;
+  }
+}
+
+.customLabel {
+  font-family: $second-family;
+  font-size: 14px;
+  line-height: 157%;
+  color: #262626;
+}

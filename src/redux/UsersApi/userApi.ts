@@ -1,0 +1,64 @@
+import type {
+  ILoginInfo,
+  ILoginUser,
+  IProfileEditor,
+  IProfileInfo,
+  IRegisterInfo,
+} from '../../types/type';
+import { baseApi } from '../baseApi';
+const token = localStorage.getItem('authToken');
+export const articlesApi = baseApi.injectEndpoints({
+  endpoints: (create) => ({
+    registerUser: create.mutation<void, IRegisterInfo>({
+      query: (userdata) => ({
+        url: '/users',
+        method: 'POST',
+        body: userdata,
+      }),
+      invalidatesTags: ['users'],
+    }),
+    loginUser: create.mutation<ILoginUser, ILoginInfo>({
+      query: (userdata) => ({
+        method: 'POST',
+        url: '/users/login',
+        body: userdata,
+      }),
+      invalidatesTags: ['users'],
+    }),
+    getProfile: create.query<IProfileInfo, { username: string }>({
+      query: ({ username }) => ({
+        url: `/profiles/${username}`,
+      }),
+      providesTags: ['users'],
+    }),
+    getUserData: create.query<ILoginUser, { token: string }>({
+      query: (userdata) => ({
+        url: `/user`,
+        headers: {
+          Authorization: `Token ${userdata}`,
+        },
+      }),
+      providesTags: ['users'],
+    }),
+    updateProfile: create.mutation<void, IProfileEditor>({
+      query: (userdata) => ({
+        method: 'PUT',
+        url: '/user',
+        body: userdata,
+        headers: {
+          Authorization: `Token ${token ? JSON.parse(token).token : null}`,
+        },
+      }),
+      invalidatesTags: ['users'],
+    }),
+  }),
+
+  overrideExisting: true,
+});
+export const {
+  useLoginUserMutation,
+  useRegisterUserMutation,
+  useGetProfileQuery,
+  useGetUserDataQuery,
+  useUpdateProfileMutation,
+} = articlesApi;

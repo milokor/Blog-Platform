@@ -1,0 +1,17 @@
+@use "../../../index.scss" as *;
+
+.CustomButtonCreate {
+  border-radius: 4px;
+  padding: 8px 16px;
+  width: 319px;
+  height: 40px;
+  background: $primary-color;
+  color: #fff;
+  margin-top: 21px;
+  margin-bottom: 8px;
+  font-family: $second-family;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: $background-color-base;
+}

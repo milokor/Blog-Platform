@@ -1,0 +1,102 @@
+@use "../../index.scss" as *;
+
+.container {
+  margin: 0 auto;
+  max-width: 980px;
+  padding: 16px;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+  font-family: $font-family;
+  margin-top: 24px;
+  background: $background-color-base;
+  .containerTop {
+    display: flex;
+    justify-content: space-between;
+
+    .titleLikedTagContainer {
+      display: flex;
+      flex-direction: column;
+      overflow-wrap: break-word;
+      .title {
+        display: flex;
+        font-size: 20px;
+        line-height: 140%;
+        color: $primary-color;
+        margin-bottom: 10px;
+      }
+
+      .liked {
+        display: flex;
+        align-items: center;
+        width: 34px;
+        height: 22px;
+        margin-left: 10px;
+      }
+      .like {
+        margin-left: 5px;
+      }
+    }
+
+    .profileContainer {
+      display: flex;
+      align-items: center;
+      img {
+        width: 46px;
+        height: 46px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      .leftBlock {
+        display: flex;
+        flex-direction: column;
+        height: 46px;
+        margin-right: 12px;
+        align-items: flex-end;
+        .name {
+          font-size: 18px;
+          line-height: 156%;
+          color: $heading-color;
+        }
+        .date {
+          font-size: 12px;
+          line-height: 183%;
+          color: $text-color-secondary;
+        }
+      }
+    }
+    .titleTagContainer {
+      display: flex;
+      flex-direction: column;
+    }
+    .tag {
+      display: inline-flex;
+      gap: 5px;
+      max-width: 800px;
+      flex-wrap: wrap;
+    }
+    .tagName {
+      border: 1px solid $text-color-secondary;
+      border-radius: 2px;
+      display: flex;
+      font-size: 12px;
+      color: $text-color-secondary;
+      padding: 0 3px;
+    }
+    .titleLikedContainer {
+      display: flex;
+      align-items: baseline;
+    }
+  }
+  .bottomContainer {
+    margin-top: 16px;
+    .description {
+      font-size: 12px;
+      line-height: 183%;
+      color: $text-color;
+      overflow-wrap: anywhere;
+    }
+  }
+}
+.paginationContainer {
+  margin-top: 26px;
+  margin-bottom: 17px;
+}
