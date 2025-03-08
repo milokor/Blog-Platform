@@ -1,1 +1,1 @@
-[blog-platform-taupe-beta.vercel.app]
+https://blog-platform-taupe-beta.vercel.app
