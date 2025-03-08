@@ -5,15 +5,11 @@ import type {
   IUpdateArticle,
 } from '../../types/type';
 import { baseApi } from '../baseApi';
-const token = localStorage.getItem('authToken');
 export const articlesApi = baseApi.injectEndpoints({
   endpoints: (create) => ({
     getArticles: create.query<articlesResponse, { mainPage: number; pageSize: number }>({
       query: ({ mainPage, pageSize }) => ({
         url: `/articles?limit=${pageSize}&offset=${mainPage}`,
-        headers: {
-          Authorization: `Token ${token ? JSON.parse(token).token : null}`,
-        },
       }),
       providesTags: ['article'],
     }),
@@ -21,9 +17,6 @@ export const articlesApi = baseApi.injectEndpoints({
     getArticle: create.query<ArticleGet, { title: string | undefined }>({
       query: ({ title }) => ({
         url: `/articles/${title}`,
-        headers: {
-          Authorization: `Token ${token ? JSON.parse(token).token : null}`,
-        },
       }),
       providesTags: ['article'],
     }),
@@ -32,9 +25,6 @@ export const articlesApi = baseApi.injectEndpoints({
         method: 'POST',
         url: '/articles',
         body: userdata,
-        headers: {
-          Authorization: `Token ${token ? JSON.parse(token).token : null}`,
-        },
       }),
       invalidatesTags: ['article'],
     }),
@@ -42,9 +32,6 @@ export const articlesApi = baseApi.injectEndpoints({
       query: ({ slug }) => ({
         method: 'DELETE',
         url: `/articles/${slug} `,
-        headers: {
-          Authorization: `Token ${token ? JSON.parse(token).token : null}`,
-        },
       }),
       invalidatesTags: ['article'],
     }),
@@ -57,9 +44,6 @@ export const articlesApi = baseApi.injectEndpoints({
         method: 'PUT',
         url: `/articles/${slug}`,
         body: { article },
-        headers: {
-          Authorization: `Token ${token ? JSON.parse(token).token : null}`,
-        },
       }),
       invalidatesTags: ['article'],
     }),
@@ -67,9 +51,6 @@ export const articlesApi = baseApi.injectEndpoints({
       query: ({ slug }) => ({
         method: 'Post',
         url: `/articles/${slug}/favorite`,
-        headers: {
-          Authorization: `Token ${token ? JSON.parse(token).token : null}`,
-        },
       }),
       invalidatesTags: ['article'],
     }),
@@ -77,9 +58,6 @@ export const articlesApi = baseApi.injectEndpoints({
       query: ({ slug }) => ({
         method: 'Delete',
         url: `/articles/${slug}/favorite`,
-        headers: {
-          Authorization: `Token ${token ? JSON.parse(token).token : null}`,
-        },
       }),
       invalidatesTags: ['article'],
     }),

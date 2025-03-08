@@ -6,7 +6,6 @@ import type {
   IRegisterInfo,
 } from '../../types/type';
 import { baseApi } from '../baseApi';
-const token = localStorage.getItem('authToken');
 export const articlesApi = baseApi.injectEndpoints({
   endpoints: (create) => ({
     registerUser: create.mutation<void, IRegisterInfo>({
@@ -45,9 +44,6 @@ export const articlesApi = baseApi.injectEndpoints({
         method: 'PUT',
         url: '/user',
         body: userdata,
-        headers: {
-          Authorization: `Token ${token ? JSON.parse(token).token : null}`,
-        },
       }),
       invalidatesTags: ['users'],
     }),

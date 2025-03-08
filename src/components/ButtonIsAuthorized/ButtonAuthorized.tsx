@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import style from './ButtonIsAuthorized.module.scss';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { logOut } from '../../redux/usersSlice/userSlice';
+import { logout } from '../../redux/usersSlice/userSlice';
 export const ButtonAuthorized = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.users.profile);
@@ -17,7 +17,7 @@ export const ButtonAuthorized = () => {
           {user.username} <img className={style.imageProfile} alt="icon" src={user.image} />
         </button>
       </Link>
-      <button type="button" className={style.buttonHeaderLogOut} onClick={() => dispatch(logOut())}>
+      <button type="button" className={style.buttonHeaderLogOut} onClick={() => dispatch(logout())}>
         Log Out
       </button>
     </>

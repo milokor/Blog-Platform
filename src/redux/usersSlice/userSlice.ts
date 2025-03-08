@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { articlesApi } from '../ArticlesApi/api';
+import { AppDispatch } from '../store';
 export interface mainState {
   auth: boolean;
   profile: {
@@ -37,11 +39,14 @@ export const UsersSlice = createSlice({
     logOut: (state) => {
       state.profile = initialState.profile;
       state.auth = initialState.auth;
-      console.log(1);
-      localStorage.removeItem('authToken');
     },
   },
 });
 
+export const logout = () => (dispatch: AppDispatch) => {
+  dispatch(UsersSlice.actions.logOut());
+  dispatch(articlesApi.util.resetApiState());
+  localStorage.removeItem('authToken');
+};
 export const { setAuthStatus, setUserDate, setUserName, logOut } = UsersSlice.actions;
 export default UsersSlice.reducer;

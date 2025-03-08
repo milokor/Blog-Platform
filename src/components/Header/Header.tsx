@@ -2,7 +2,7 @@ import { memo, useEffect } from 'react';
 import style from './Header.module.scss';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { logOut, setAuthStatus, setUserDate, setUserName } from '../../redux/usersSlice/userSlice';
+import { logout, setAuthStatus, setUserDate, setUserName } from '../../redux/usersSlice/userSlice';
 import { useGetProfileQuery, useGetUserDataQuery } from '../../redux/UsersApi/userApi';
 import { ButtonAuthorized } from '../ButtonIsAuthorized/ButtonAuthorized';
 import { ButtonNoAuthorized } from '../ButtonIsAuthorized/ButtonNoAuthorized';
@@ -29,7 +29,7 @@ const HeaderComponent = () => {
       const parseToken = JSON.parse(token);
       const isTokenValid = Date.parse(parseToken.expires) > Date.now();
       if (!isTokenValid) {
-        dispatch(logOut());
+        dispatch(logout());
       }
       if (userData && !isLoading) {
         dispatch(setUserName(userData.user.username));
