@@ -48,5 +48,5 @@ export const logout = () => (dispatch: AppDispatch) => {
   dispatch(articlesApi.util.resetApiState());
   localStorage.removeItem('authToken');
 };
-export const { setAuthStatus, setUserDate, setUserName, logOut } = UsersSlice.actions;
+export const { setAuthStatus, setUserDate, setUserName } = UsersSlice.actions;
 export default UsersSlice.reducer;

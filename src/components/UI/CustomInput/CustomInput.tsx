@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import style from './CustomInput.module.scss';
+import * as React from 'react';
 
 interface CustomInputProps {
   id: string;

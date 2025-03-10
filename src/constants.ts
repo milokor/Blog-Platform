@@ -1,5 +1,6 @@
 import { FieldValues, RegisterOptions } from 'react-hook-form';
 import { IformEditProfile, IformSignIn } from './types/type';
+import * as React from 'react';
 
 export interface InputConfig<T extends FieldValues> {
   id: keyof T;

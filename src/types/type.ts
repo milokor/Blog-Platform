@@ -41,12 +41,6 @@ export interface IformEditProfile {
   image?: string;
 }
 
-export interface IRegisterUser {
-  email: string;
-  token: string;
-  username: string;
-  image: string;
-}
 
 export interface IProfileEditor {
   user: {
@@ -67,14 +61,6 @@ export interface ILoginUser {
   user: {
     email: string;
     image: string;
-    token: string;
-    username: string;
-  };
-}
-
-export interface ILoginUserStorage {
-  user: {
-    email: string;
     token: string;
     username: string;
   };
@@ -104,11 +90,6 @@ export interface IProfileInfo {
   };
 }
 
-export interface IProfileInfoProps {
-  following: boolean;
-  username: string;
-  image: string;
-}
 
 export interface ICreateArticle {
   body: string;
@@ -159,5 +140,4 @@ export interface IUnauthorizedError {
   };
   status: number;
 }
-export type keyIformEditProfile = keyof IformEditProfile;
 export type keyIformSignIn = keyof IformSignIn;
