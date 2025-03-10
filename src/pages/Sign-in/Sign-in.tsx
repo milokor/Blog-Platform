@@ -40,7 +40,7 @@ export const SignIn = () => {
     if (error) {
       api.error({
         key: 'auth-error',
-        message: 'Проверьте введенный email или пароль',
+        message: 'Check the entered email or password',
         onClose: () => setError(false),
       });
     }
@@ -55,10 +55,10 @@ export const SignIn = () => {
           name="email"
           control={control}
           rules={{
-            required: 'Поле не должно быть пустым',
+            required: 'The field must not be empty',
             pattern: {
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: 'Некорректный почтовый адрес',
+              message: 'Incorrect postal address',
             },
           }}
           render={({ field }) => (
@@ -77,7 +77,7 @@ export const SignIn = () => {
           name="password"
           control={control}
           rules={{
-            required: 'Поле не должно быть пустым',
+            required: 'The field must not be empty',
           }}
           render={({ field }) => (
             <CustomInput

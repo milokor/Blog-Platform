@@ -45,7 +45,7 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
     if (error) {
       api.error({
         key: 'create-error',
-        message: 'Возникла непредвиденная ошибка, попробуйте еще раз',
+        message: 'An unexpected error occurred, please try again.',
         onClose: () => setError(false),
       });
     }
@@ -65,7 +65,7 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
         if (err.originalStatus === 403) {
           api.error({
             key: 'create-error403',
-            message: 'Это не ваша статья, вы не можете ее изменять',
+            message: 'It\'s not your article, you can\'t change it',
           });
         }
       }
@@ -153,10 +153,10 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
                             name={`tagList.${index}`}
                             control={control}
                             rules={{
-                              required: 'Должен быть от 2 символов',
+                              required: 'Must be 2 characters or more',
                               minLength: {
                                 value: 2,
-                                message: 'Должен быть от 2 символов',
+                                message: 'Must be 2 characters or more',
                               },
                             }}
                             render={({ field }) => (

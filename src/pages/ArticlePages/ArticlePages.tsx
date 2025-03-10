@@ -48,7 +48,7 @@ export const ArticlePages = () => {
       if (err.status === 401) {
         api.error({
           key: 'auth-error',
-          message: 'Вам нужно авторизоваться',
+          message: 'You need to log in',
           duration: 3,
         });
       }
@@ -79,7 +79,7 @@ export const ArticlePages = () => {
               <div className={style.titleTagContainer}>
                 <div className={style.tag}>
                   {data?.article.tagList === null
-                    ? data?.article.tagList || []
+                    ? []
                     : data?.article.tagList.map((t, index) => {
                         if (t === null) {
                           return;

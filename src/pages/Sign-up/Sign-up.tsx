@@ -27,7 +27,7 @@ export const SignUp = () => {
     const rules: RegisterOptions<IformSignIn> = { ...input.rules };
     if (input.matchesField) {
       rules.validate = (value: string | boolean) =>
-        value === watch(input.matchesField as keyIformSignIn) || 'Пароль не совпадает';
+        value === watch(input.matchesField as keyIformSignIn) || 'Password doesn\'t match';
     }
     return rules;
   };

@@ -24,11 +24,11 @@ export const INPUTFORM: InputConfig<IformSignIn>[] = [
       },
       minLength: {
         value: 3,
-        message: 'Пароль должен быть от 3 символов',
+        message: 'Password must be 3 characters or more',
       },
       maxLength: {
         value: 20,
-        message: 'Пароль должен быть не более 20 символов',
+        message: 'Password must be no more than 20 characters',
       },
     },
   },
@@ -41,7 +41,7 @@ export const INPUTFORM: InputConfig<IformSignIn>[] = [
       required: 'The field must not be empty',
       pattern: {
         value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-        message: 'Некорректный почтовый адрес',
+        message: 'Incorrect postal address',
       },
     },
   },
@@ -54,11 +54,11 @@ export const INPUTFORM: InputConfig<IformSignIn>[] = [
       required: 'The field must not be empty',
       minLength: {
         value: 6,
-        message: 'Пароль должен быть от 6 символов',
+        message: 'Password must be 6 characters or more',
       },
       maxLength: {
         value: 40,
-        message: 'Пароль должен быть не более 40 символов',
+        message: 'Password must be 40 characters or less',
       },
     },
   },
@@ -68,7 +68,7 @@ export const INPUTFORM: InputConfig<IformSignIn>[] = [
     type: 'password',
     placeholder: 'Password',
     rules: {
-      required: 'Поле не должно быть пустым',
+      required: 'The field must not be empty',
     },
     matchesField: 'password',
   },
@@ -93,7 +93,7 @@ export const EDITINPUTFORM: InputConfig<IformEditProfile>[] = [
       required: 'The field must not be empty',
       pattern: {
         value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-        message: 'Некорректный почтовый адрес',
+        message: 'Incorrect postal address',
       },
     },
   },
@@ -101,16 +101,16 @@ export const EDITINPUTFORM: InputConfig<IformEditProfile>[] = [
     id: 'password',
     label: 'New password',
     type: 'password',
-    placeholder: 'new password',
+    placeholder: 'New password',
     rules: {
       required: 'The field must not be empty',
       minLength: {
         value: 6,
-        message: 'Пароль должен быть от 6 символов',
+        message: 'Password must be 6 characters or more',
       },
       maxLength: {
         value: 40,
-        message: 'Пароль должен быть не более 40 символов',
+        message: 'Password must be 40 characters or less',
       },
     },
   },
@@ -123,7 +123,7 @@ export const EDITINPUTFORM: InputConfig<IformEditProfile>[] = [
       pattern: {
         value:
           /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]*)?$/,
-        message: 'Некорректный URL',
+        message: 'Incorrect URL',
       },
     },
   },

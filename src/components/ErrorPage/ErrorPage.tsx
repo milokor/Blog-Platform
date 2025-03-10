@@ -12,7 +12,7 @@ export const ErrorPage = () => {
         gap: 10,
       }}
     >
-      <Alert message={'Возникла непредвиденная ошибка'} type={'error'} />
+      <Alert message={'An unexpected error occurred'} type={'error'} />
 
       <Link to={'/'}>Вернуться назад</Link>
     </div>
