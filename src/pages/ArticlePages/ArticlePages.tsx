@@ -31,7 +31,7 @@ export const ArticlePages = () => {
       if (err.originalStatus === 403) {
         api.error({
           key: 'create-error403',
-          message: 'Это не ваша статья, вы не можете ее удалять',
+          message: 'Its not your article, you cant delete it',
         });
       }
     }

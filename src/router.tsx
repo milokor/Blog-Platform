@@ -8,6 +8,7 @@ import { SignIn } from './pages/Sign-in/Sign-in';
 import { SignUp } from './pages/Sign-up/Sign-up';
 import { ErrorPage } from './components/ErrorPage/ErrorPage';
 import { ProtectedRoute } from './ProtectedRouter';
+
 export const router = createBrowserRouter([
   {
     element: <RootLayout />,
@@ -34,28 +35,21 @@ export const router = createBrowserRouter([
         element: <ArticlePages />,
       },
       {
-        path: '/new-article',
-        element: (
-          <ProtectedRoute>
-            <CreateArticle name="Create new article" />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: '/articles/:slug/edit',
-        element: (
-          <ProtectedRoute>
-            <CreateArticle name="Edit article" />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: '/profile',
-        element: (
-          <ProtectedRoute>
-            <EditProfile />
-          </ProtectedRoute>
-        ),
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: '/new-article',
+            element: <CreateArticle name="Create new article" />,
+          },
+          {
+            path: '/articles/:slug/edit',
+            element: <CreateArticle name="Edit article" />,
+          },
+          {
+            path: '/profile',
+            element: <EditProfile />,
+          },
+        ],
       },
     ],
   },

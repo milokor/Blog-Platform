@@ -14,7 +14,7 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
   const [api, contextHolder] = notification.useNotification();
   const { slug } = useParams();
   const navigate = useNavigate();
-  const { defaultValues, isLoading } = useEditArticle(slug);
+  const { defaultValue, isLoading } = useEditArticle(slug);
   const [error, setError] = useState(false);
   const {
     handleSubmit,
@@ -33,14 +33,22 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
     },
   });
   useEffect(() => {
-    if (defaultValues && !isLoading) {
+    if (defaultValue && !isLoading) {
       reset({
-        ...defaultValues,
-        tagList: defaultValues.tagList.length > 0 ? defaultValues.tagList : [''],
+        ...defaultValue,
+        tagList: defaultValue.tagList.length > 0 ? defaultValue.tagList : [''],
       });
     }
   }, [reset, isLoading]);
-
+  useEffect(() => {
+    if (name === 'Create new article')
+      reset({
+        title: '',
+        description: '',
+        body: '',
+        tagList: [''],
+      });
+  });
   useEffect(() => {
     if (error) {
       api.error({
@@ -65,7 +73,7 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
         if (err.originalStatus === 403) {
           api.error({
             key: 'create-error403',
-            message: 'It\'s not your article, you can\'t change it',
+            message: "It's not your article, you can't change it",
           });
         }
       }
@@ -101,7 +109,7 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
               <Controller
                 name="title"
                 control={control}
-                rules={{ required: 'Обязательное поле' }}
+                rules={{ required: 'The field must not be empty' }}
                 render={({ field }) => <Input {...field} placeholder="Title" />}
               />
             </Form.Item>
@@ -113,7 +121,7 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
               <Controller
                 name="description"
                 control={control}
-                rules={{ required: 'Обязательное поле' }}
+                rules={{ required: 'The field must not be empty' }}
                 render={({ field }) => <Input {...field} placeholder="Title" />}
               />
             </Form.Item>
@@ -125,7 +133,7 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
               <Controller
                 name="body"
                 control={control}
-                rules={{ required: 'Обязательное поле' }}
+                rules={{ required: 'The field must not be empty' }}
                 render={({ field }) => (
                   <TextArea {...field} placeholder="Text" style={{ height: 168, resize: 'none' }} />
                 )}
@@ -134,7 +142,7 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
 
             <Form.List
               name="tagList"
-              initialValue={defaultValues.tagList.length === 0 ? [''] : defaultValues.tagList}
+              initialValue={defaultValue.tagList.length === 0 ? [''] : defaultValue.tagList}
             >
               {(fields, { add, remove }) => (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>

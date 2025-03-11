@@ -9,7 +9,7 @@ export const useEditArticle = (slug?: string) => {
   const { data, isLoading } = useGetArticlesOneQuery({ slug }, { skip: !slug });
 
   return {
-    defaultValues: {
+    defaultValue: {
       title: data?.article.title || '',
       description: data?.article.description || '',
       body: data?.article.body || '',

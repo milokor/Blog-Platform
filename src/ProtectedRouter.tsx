@@ -1,13 +1,6 @@
-import { JSX } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAppSelector } from './redux/store';
+import { Navigate, Outlet } from 'react-router-dom';
 
-export const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const isAuthenticated = useAppSelector((state) => state.users.auth);
-
-  if (!isAuthenticated) {
-    return <Navigate to="/sign-in" replace />;
-  }
-
-  return children;
+export const ProtectedRoute = () => {
+  const isAuthenticated = localStorage.getItem('authToken');
+  return isAuthenticated ? <Outlet /> : <Navigate to="/sign-in" replace />;
 };
