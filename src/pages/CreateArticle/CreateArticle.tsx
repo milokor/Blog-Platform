@@ -48,7 +48,7 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
         body: '',
         tagList: [''],
       });
-  });
+  }, []);
   useEffect(() => {
     if (error) {
       api.error({
