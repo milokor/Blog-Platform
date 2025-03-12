@@ -41,7 +41,6 @@ export interface IformEditProfile {
   image?: string;
 }
 
-
 export interface IProfileEditor {
   user: {
     username: string;
@@ -82,6 +81,14 @@ export interface ILoginInfo {
   };
 }
 
+export interface IRegisterGetInfo {
+  user: {
+    email: string;
+    token: string;
+    password: string;
+  };
+}
+
 export interface IProfileInfo {
   profile: {
     following: boolean;
@@ -89,7 +96,6 @@ export interface IProfileInfo {
     image: string;
   };
 }
-
 
 export interface ICreateArticle {
   body: string;

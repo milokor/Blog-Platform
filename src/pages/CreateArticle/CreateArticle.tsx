@@ -1,11 +1,11 @@
 import { Controller, useForm } from 'react-hook-form';
-import style from './CreateArticle.module.scss';
 import { Button, Form, Input, notification, Spin } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import { CreateProps, ICreateArticle, IError } from '../../types/type';
-import { useCreateArticleMutation, useEditArticleMutation } from '../../redux/ArticlesApi/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FC, useEffect, useState } from 'react';
+import { CreateProps, ICreateArticle, IError } from '../../types/type';
+import { useCreateArticleMutation, useEditArticleMutation } from '../../redux/ArticlesApi/api';
+import style from './CreateArticle.module.scss';
 import { useEditArticle } from '../../hooks/useEditArticle';
 
 export const CreateArticle: FC<CreateProps> = ({ name }) => {
@@ -41,13 +41,14 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
     }
   }, [reset, isLoading]);
   useEffect(() => {
-    if (name === 'Create new article')
+    if (name === 'Create new article') {
       reset({
         title: '',
         description: '',
         body: '',
         tagList: [''],
       });
+    }
   }, [name]);
   useEffect(() => {
     if (error) {
@@ -65,7 +66,7 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
       try {
         await editArticle({
           article: { ...data },
-          slug: slug,
+          slug,
         }).unwrap();
         navigate('/');
       } catch (error) {

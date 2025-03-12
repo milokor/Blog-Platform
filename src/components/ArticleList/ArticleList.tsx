@@ -20,7 +20,7 @@ export const ArticleList = () => {
   const { mainPage, pageSize } = page;
   const { data, isLoading } = useGetArticlesQuery({ mainPage, pageSize });
   const dispatch = useAppDispatch();
-  const handleClick = async (slug: string, favorited: boolean) => {
+  const handleClick = async (slug: string, favorited: boolean): Promise<void> => {
     try {
       if (favorited) {
         await deleteFavoriteAnArticle({ slug }).unwrap();

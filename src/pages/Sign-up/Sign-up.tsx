@@ -6,7 +6,9 @@ import { Checkbox } from 'antd';
 import style from './Sign-up.module.scss';
 import { Controller, RegisterOptions, useForm } from 'react-hook-form';
 import { IformSignIn, keyIformSignIn, ServerError } from '../../types/type';
-import { useRegisterUserMutation } from '../../redux/UsersApi/userApi';
+import { useLoginUserMutation, useRegisterUserMutation } from '../../redux/UsersApi/userApi';
+import { useAppDispatch } from '../../redux/store';
+import { setAuthStatus } from '../../redux/usersSlice/userSlice';
 
 export const SignUp = () => {
   const {
@@ -23,19 +25,27 @@ export const SignUp = () => {
   });
   const navigate = useNavigate();
   const [registerUser] = useRegisterUserMutation();
+  const [loginUser] = useLoginUserMutation();
+  const dispatch = useAppDispatch();
   const getValidationRules = (input: InputConfig<IformSignIn>): RegisterOptions<IformSignIn> => {
     const rules: RegisterOptions<IformSignIn> = { ...input.rules };
     if (input.matchesField) {
       rules.validate = (value: string | boolean) =>
-        value === watch(input.matchesField as keyIformSignIn) || 'Password doesn\'t match';
+        value === watch(input.matchesField as keyIformSignIn) || "Password doesn't match";
     }
     return rules;
   };
   const onSubmit = async (dataUser: IformSignIn) => {
     const { username, email, password } = dataUser;
     try {
-      await registerUser({ user: { email, username, password } }).unwrap();
-      navigate('/sign-in');
+      const { user } = await registerUser({ user: { email, username, password } }).unwrap();
+      localStorage.setItem(
+        'authToken',
+        JSON.stringify({ token: user.token, expires: new Date(Date.now() + 86400e3) }),
+      );
+      await loginUser({ user: { email, password } }).unwrap();
+      dispatch(setAuthStatus(true));
+      navigate('/');
     } catch (err) {
       const error = err as ServerError;
       if (error.data?.errors) {

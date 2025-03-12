@@ -3,12 +3,13 @@ import type {
   ILoginUser,
   IProfileEditor,
   IProfileInfo,
+  IRegisterGetInfo,
   IRegisterInfo,
 } from '../../types/type';
 import { baseApi } from '../baseApi';
 export const articlesApi = baseApi.injectEndpoints({
   endpoints: (create) => ({
-    registerUser: create.mutation<void, IRegisterInfo>({
+    registerUser: create.mutation<IRegisterGetInfo, IRegisterInfo>({
       query: (userdata) => ({
         url: '/users',
         method: 'POST',
