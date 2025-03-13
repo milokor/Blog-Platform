@@ -2,13 +2,15 @@ import { memo, useEffect } from 'react';
 import style from './Header.module.scss';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { logout, setAuthStatus, setUserDate, setUserName } from '../../redux/usersSlice/userSlice';
+import { setAuthStatus, setUserDate, setUserName } from '../../redux/usersSlice/userSlice';
 import { useGetProfileQuery, useGetUserDataQuery } from '../../redux/UsersApi/userApi';
 import { ButtonAuthorized } from '../ButtonIsAuthorized/ButtonAuthorized';
 import { ButtonNoAuthorized } from '../ButtonIsAuthorized/ButtonNoAuthorized';
+import { useLogout } from '../../hooks/useLogOut';
 const HeaderComponent = () => {
   const dispatch = useAppDispatch();
   const auth = useAppSelector((state) => state.users.auth);
+  const logout = useLogout();
   const token = localStorage.getItem('authToken');
   const { data: userData, isLoading: isUserLoading } = useGetUserDataQuery(
     token ? JSON.parse(token).token : null,
@@ -28,7 +30,7 @@ const HeaderComponent = () => {
       const parseToken = JSON.parse(token);
       const isTokenValid = Date.parse(parseToken.expires) > Date.now();
       if (!isTokenValid) {
-        dispatch(logout());
+        logout();
       }
       if (userData && !isLoading) {
         dispatch(setUserName(userData.user.username));
