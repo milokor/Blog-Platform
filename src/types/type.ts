@@ -88,7 +88,6 @@ export interface IRegisterGetInfo {
     password: string;
   };
 }
-
 export interface IProfileInfo {
   profile: {
     following: boolean;

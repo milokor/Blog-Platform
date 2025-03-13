@@ -13,14 +13,13 @@ const HeaderComponent = () => {
   const { data: userData, isLoading: isUserLoading } = useGetUserDataQuery(
     token ? JSON.parse(token).token : null,
     {
-      skip: !token,
-      refetchOnMountOrArgChange: true,
+      skip: !token || !auth,
     },
   );
   const { data: profileData, isLoading: isProfileLoading } = useGetProfileQuery(
     { username: userData?.user.username || '' },
     {
-      skip: !userData?.user.username,
+      skip: !userData?.user.username || !auth,
     },
   );
   const isLoading = isUserLoading || isProfileLoading;

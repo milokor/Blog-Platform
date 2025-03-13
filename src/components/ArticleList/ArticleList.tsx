@@ -18,7 +18,10 @@ export const ArticleList = () => {
   const [api, contextHolder] = notification.useNotification();
   const page = useAppSelector((state) => state.article);
   const { mainPage, pageSize } = page;
-  const { data, isLoading } = useGetArticlesQuery({ mainPage, pageSize });
+  const { data, isLoading } = useGetArticlesQuery(
+    { mainPage, pageSize },
+    { refetchOnMountOrArgChange: true },
+  );
   const dispatch = useAppDispatch();
   const handleClick = async (slug: string, favorited: boolean): Promise<void> => {
     try {
