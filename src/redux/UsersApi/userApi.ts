@@ -7,7 +7,7 @@ import type {
   IRegisterInfo,
 } from '../../types/type';
 import { baseApi } from '../baseApi';
-export const articlesApi = baseApi.injectEndpoints({
+export const userApi = baseApi.injectEndpoints({
   endpoints: (create) => ({
     registerUser: create.mutation<IRegisterGetInfo, IRegisterInfo>({
       query: (userdata) => ({
@@ -58,4 +58,4 @@ export const {
   useGetProfileQuery,
   useGetUserDataQuery,
   useUpdateProfileMutation,
-} = articlesApi;
+} = userApi;

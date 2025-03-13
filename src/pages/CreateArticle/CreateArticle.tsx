@@ -4,7 +4,10 @@ import TextArea from 'antd/es/input/TextArea';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FC, useEffect, useState } from 'react';
 import { CreateProps, ICreateArticle, IError } from '../../types/type';
-import { useCreateArticleMutation, useEditArticleMutation } from '../../redux/ArticlesApi/api';
+import {
+  useCreateArticleMutation,
+  useEditArticleMutation,
+} from '../../redux/ArticlesApi/articlesApi';
 import style from './CreateArticle.module.scss';
 import { useEditArticle } from '../../hooks/useEditArticle';
 
@@ -58,7 +61,7 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
         onClose: () => setError(false),
       });
     }
-    return () => api.destroy('auth-error');
+    return () => api.destroy('create-error');
   }, [error, api]);
 
   const onSubmit = async (data: ICreateArticle) => {
@@ -96,7 +99,9 @@ export const CreateArticle: FC<CreateProps> = ({ name }) => {
   return (
     <>
       {isLoading ? (
-        <Spin />
+        <div className={style.spinner}>
+          <Spin />
+        </div>
       ) : (
         <div className={style.container}>
           {contextHolder}

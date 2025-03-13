@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { articlesApi } from '../ArticlesApi/api';
+import { articlesApi } from '../ArticlesApi/articlesApi';
 import { AppDispatch } from '../store';
 export interface mainState {
   auth: boolean;

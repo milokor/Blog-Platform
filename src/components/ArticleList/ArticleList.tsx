@@ -4,7 +4,7 @@ import {
   useDeleteFavoriteAnArticleMutation,
   useFavoriteAnArticleMutation,
   useGetArticlesQuery,
-} from '../../redux/ArticlesApi/api';
+} from '../../redux/ArticlesApi/articlesApi';
 import style from './ArticleList.module.scss';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { setCurrentPage } from '../../redux/ArticleSlice/ArticleSlice';
@@ -43,7 +43,7 @@ export const ArticleList = () => {
     <>
       {contextHolder}
       {isLoading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
+        <div className={style.spinner}>
           <Spin size="large" />
         </div>
       ) : (

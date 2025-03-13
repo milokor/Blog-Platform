@@ -1,4 +1,4 @@
-import { useGetArticlesOneQuery } from '../redux/ArticlesApi/api';
+import { useGetArticlesOneQuery } from '../redux/ArticlesApi/articlesApi';
 interface ArticleData {
   title: string;
   description: string;

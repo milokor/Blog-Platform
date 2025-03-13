@@ -1,16 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { articlesApi } from './ArticlesApi/api';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import articleReducer from './ArticleSlice/ArticleSlice';
 import UsersSlice from './usersSlice/userSlice';
-
+import { baseApi } from './baseApi';
+const rootReducer = combineReducers({
+  [baseApi.reducerPath]: baseApi.reducer,
+  article: articleReducer,
+  users: UsersSlice,
+});
 export const store = configureStore({
-  reducer: {
-    [articlesApi.reducerPath]: articlesApi.reducer,
-    article: articleReducer,
-    users: UsersSlice,
-  },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(articlesApi.middleware),
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

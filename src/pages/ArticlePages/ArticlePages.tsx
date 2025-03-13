@@ -2,12 +2,13 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Tooltip, Popconfirm, notification, Spin } from 'antd';
 import Markdown from 'markdown-to-jsx';
 import style from './ArticlePages.module.scss';
+import '../../index.scss';
 import {
   useDeleteArticleMutation,
   useDeleteFavoriteAnArticleMutation,
   useFavoriteAnArticleMutation,
   useGetArticleQuery,
-} from '../../redux/ArticlesApi/api';
+} from '../../redux/ArticlesApi/articlesApi';
 import { dateParse } from '../../utils/dateParse';
 import { useAppSelector } from '../../redux/store';
 import { IError, IUnauthorizedError } from '../../types/type';
@@ -59,7 +60,7 @@ export const ArticlePages = () => {
   return (
     <>
       {isLoading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
+        <div className={style.spinner}>
           <Spin size="large" />
         </div>
       ) : (
